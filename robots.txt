@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /slashsec-AGBs.pdf
+
+User-agent: *
+Allow: /
+
+Sitemap: http://www.slashsec.at/sitemap.xml
