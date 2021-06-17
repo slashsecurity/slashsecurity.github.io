@@ -1,0 +1,3 @@
+Contact: mailto:security@slashsec.at
+Encryption: https://www.slashsec.at/publickey.txt
+Preferred-Languages: de, en
