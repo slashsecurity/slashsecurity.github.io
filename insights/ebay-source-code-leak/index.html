@@ -9,7 +9,7 @@
 	<meta name="HandheldFriendly" content="True" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<link rel="stylesheet" type="text/css" href="./../../../../../../../assets/css/style.css?v=264313192a" />
+	<link rel="stylesheet" type="text/css" href="./../assets/css/style.css?v=264313192a" />
 
 	<script>
 			var siteUrl = 'https://www.slashsec.at/insights';
@@ -29,7 +29,7 @@
 			}
 	</script>
 
-	<link rel="icon" href="./../../../../../../../favicon.png" type="image/png" />
+	<link rel="icon" href="./../favicon.png" type="image/png" />
     <link rel="canonical" href="https://www.slashsec.at/insights/ebay-source-code-leak/" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
     <link rel="amphtml" href="https://www.slashsec.at/insights/ebay-source-code-leak/amp/" />
@@ -178,7 +178,7 @@ var gh_white_logo = 'https://www.slashsec.at/assets/img/slashsec-logo-white-blog
 	<div class="nav-header">
 		<nav class="nav-wrapper" aria-label="Haupt">
 				<span class="logo">
-					<a href="https://www.slashsec.at/insights" title="Startseite"><img src="./../../../../../../..//content/images/2021/06/slashsec-full-4.svg" alt="Logo" /></a>
+					<a href="https://www.slashsec.at/insights" title="Startseite"><img src="./..//content/images/2021/06/slashsec-full-4.svg" alt="Logo" /></a>
 				</span>
 				<ul>
 		<li class="nav-services-portfolio"><a href="https://www.slashsec.at/#portfolio"><span>Services &amp; Portfolio</span></a></li>
@@ -235,12 +235,12 @@ var gh_white_logo = 'https://www.slashsec.at/assets/img/slashsec-logo-white-blog
 		<div class="post-meta">
 			<div class="post-meta-avatars">
 					<figure class="post-meta-avatar avatar">
-						<a href="./../../../../../../../author/david/" class="author-avatar">
-								<img class="author-profile-image" src="./../../../../../../../content/images/2021/06/me-1.jpg" alt="David Wind" />
+						<a href="./../author/david/" class="author-avatar">
+								<img class="author-profile-image" src="./../content/images/2021/06/me-1.jpg" alt="David Wind" />
 						</a>
 					</figure>
 			</div>
-			<h4 class="post-meta-author"><a href="./../../../../../../../author/david/">David Wind</a></h4>
+			<h4 class="post-meta-author"><a href="./../author/david/">David Wind</a></h4>
 			<time datetime="02-06-2021">02 Juni 2021</time> &bull; Lesezeit: 1 Min.
 		</div>
 	</div>
@@ -251,7 +251,7 @@ var gh_white_logo = 'https://www.slashsec.at/assets/img/slashsec-logo-white-blog
 		<div class="inner">
 
 			<section class="post-content">
-				<p>Schwachstellen mit hoher Kritikalität müssen nicht immer komplex oder auf veraltete Software zurückzuführen sein, im Gegenteil. Oft können banale Konfigurationsfehler, welche für Angreifer einfach zu identifizieren sind, große Auswirkungen auf das betroffene Unternehmen haben. </p><p>Ich will dies an einem Beispiel erläutern und zwar anhand einer Schwachstelle, welche ich im November 2018 bei<strong> eBay Japan</strong> identifizieren konnte.<br>Den vollen Beitrag dazu (auf Englisch) finden Sie auf meinem privaten <a href="https://slashcrypto.org/2018/11/28/eBay-source-code-leak/">Blog</a>.</p><h3 id="hacking-ebay-japan">Hacking eBay Japan</h3><p>Im Zuge eines privaten Research Projektes suchte ich zu diesem Zeitpunkt nach falsch konfigurierten Git Instanzen, welche es anonymen Angreifern erlauben, sensible Daten wie Source Code herunterzuladen. <br>Ich stieß schnell auf einen sehr bekannten Firmennamen: <strong>eBay</strong>. </p><p>Die Verwundbarkeit des Systems ließ sich prüfen, indem die URL <a href="https://www.ebay.co.jp/.git/HEAD">www.ebay.co.jp/.git/HEAD</a> aufgerufen wurde und folgende Antwort retourniert wurde: </p><figure class="kg-card kg-image-card"><img src="./../../../../../../..//content/images/2021/06/image.png" class="kg-image" alt loading="lazy" width="783" height="273" srcset="https://www.slashsec.at/insights/content/images/size/w600/2021/06/image.png 600w, https://www.slashsec.at/insights/content/images/2021/06/image.png 783w" sizes="(min-width: 720px) 720px"></figure><p>Dies ist ein starker Indikator, dass Angreifer über das Internet ohne jegliche Anmeldung sensible Daten von den Servern von eBay herunterladen können. </p><p>Ich wusste, dass eBay ein sogenanntes "Bug Bounty Programm" betreibt, weswegen ich die Schwachstelle auch weiter ausnutzte und versuchte, so viele Daten wie nur irgendwie möglich von den Servern herunterzuladen. </p><p>Einige Stunden später war ich im Besitz von <strong>1,2GB an Daten</strong> mit <strong>Klartextpasswörtern</strong>, <strong>PHP Source Code</strong>, <strong>Konfigurationsdateien</strong> und mehr.</p><p>Ich habe diesen Umstand selbstverständlich sofort an eBay gemeldet und 16 Stunden später war die Schwachstelle auch schon behoben. </p><h3 id="schlussfolgerung">Schlussfolgerung</h3><p>Anhand dieses Beispiels kann man erkennen, dass es oft nur einen kleinen Fehler (in diesem Fall eine falsche Berechtigung auf einen Ordner) braucht, um potenziell eine schwerwiegende Schwachstelle zu kreieren.</p><p>Schwachstellen entstehen sehr oft aufgrund von nicht aktueller Software, jedoch sollten Konfigurationen regelmäßig geprüft und Best Practices regelmäßig geschult werden.</p><p></p><p></p><p></p><p></p>
+				<p>Schwachstellen mit hoher Kritikalität müssen nicht immer komplex oder auf veraltete Software zurückzuführen sein, im Gegenteil. Oft können banale Konfigurationsfehler, welche für Angreifer einfach zu identifizieren sind, große Auswirkungen auf das betroffene Unternehmen haben. </p><p>Ich will dies an einem Beispiel erläutern und zwar anhand einer Schwachstelle, welche ich im November 2018 bei<strong> eBay Japan</strong> identifizieren konnte.<br>Den vollen Beitrag dazu (auf Englisch) finden Sie auf meinem privaten <a href="https://slashcrypto.org/2018/11/28/eBay-source-code-leak/">Blog</a>.</p><h3 id="hacking-ebay-japan">Hacking eBay Japan</h3><p>Im Zuge eines privaten Research Projektes suchte ich zu diesem Zeitpunkt nach falsch konfigurierten Git Instanzen, welche es anonymen Angreifern erlauben, sensible Daten wie Source Code herunterzuladen. <br>Ich stieß schnell auf einen sehr bekannten Firmennamen: <strong>eBay</strong>. </p><p>Die Verwundbarkeit des Systems ließ sich prüfen, indem die URL <a href="https://www.ebay.co.jp/.git/HEAD">www.ebay.co.jp/.git/HEAD</a> aufgerufen wurde und folgende Antwort retourniert wurde: </p><figure class="kg-card kg-image-card"><img src="./..//content/images/2021/06/image.png" class="kg-image" alt loading="lazy" width="783" height="273" srcset="https://www.slashsec.at/insights/content/images/size/w600/2021/06/image.png 600w, https://www.slashsec.at/insights/content/images/2021/06/image.png 783w" sizes="(min-width: 720px) 720px"></figure><p>Dies ist ein starker Indikator, dass Angreifer über das Internet ohne jegliche Anmeldung sensible Daten von den Servern von eBay herunterladen können. </p><p>Ich wusste, dass eBay ein sogenanntes "Bug Bounty Programm" betreibt, weswegen ich die Schwachstelle auch weiter ausnutzte und versuchte, so viele Daten wie nur irgendwie möglich von den Servern herunterzuladen. </p><p>Einige Stunden später war ich im Besitz von <strong>1,2GB an Daten</strong> mit <strong>Klartextpasswörtern</strong>, <strong>PHP Source Code</strong>, <strong>Konfigurationsdateien</strong> und mehr.</p><p>Ich habe diesen Umstand selbstverständlich sofort an eBay gemeldet und 16 Stunden später war die Schwachstelle auch schon behoben. </p><h3 id="schlussfolgerung">Schlussfolgerung</h3><p>Anhand dieses Beispiels kann man erkennen, dass es oft nur einen kleinen Fehler (in diesem Fall eine falsche Berechtigung auf einen Ordner) braucht, um potenziell eine schwerwiegende Schwachstelle zu kreieren.</p><p>Schwachstellen entstehen sehr oft aufgrund von nicht aktueller Software, jedoch sollten Konfigurationen regelmäßig geprüft und Best Practices regelmäßig geschult werden.</p><p></p><p></p><p></p><p></p>
 			</section>
 
 			<section class="post-footer">
@@ -274,7 +274,7 @@ var gh_white_logo = 'https://www.slashsec.at/assets/img/slashsec-logo-white-blog
 
 				<aside class="post-tags">
 					<span class="post-info-label">Thema</span>
-					<a href="./../../../../../../../tag/bug-bounty/">Bug Bounty</a> <a href="./../../../../../../../tag/vulnerability/">Vulnerability</a> <a href="./../../../../../../../tag/git/">git</a>
+					<a href="./../tag/bug-bounty/">Bug Bounty</a> <a href="./../tag/vulnerability/">Vulnerability</a> <a href="./../tag/git/">git</a>
 				</aside>
 
 			</section>
@@ -330,7 +330,7 @@ var gh_white_logo = 'https://www.slashsec.at/assets/img/slashsec-logo-white-blog
 
 	</section>
 
-	<script type="text/javascript" src="./../../../../../../../assets/js/script.js?v=264313192a"></script>
+	<script type="text/javascript" src="./../assets/js/script.js?v=264313192a"></script>
 
 	<script>
   $(document).ready(function () {
