@@ -1,35 +1,20 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kritische Konfigurations-Schwachstellen am Beispiel von eBay</title>
+    <link rel="stylesheet" href="./../assets/built/screen.css?v=803b73dda6">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:400,400i,700,700i,800">
 
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <script>
+        if (localStorage.getItem('alto_dark') == 'true') {
+            document.documentElement.classList.add('dark-mode');
+        }
+    </script>
 
-	<title>Kritische Konfigurations-Schwachstellen am Beispiel von eBay</title>
-	<meta name="HandheldFriendly" content="True" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-	<link rel="stylesheet" type="text/css" href="./../assets/css/style.css?v=264313192a" />
-
-	<script>
-			var siteUrl = 'https://www.slashsec.at/insights';
-	</script>
-
-	<script>
-			var localTheme = localStorage.getItem('attila_theme');
-			switch (localTheme) {
-					case 'dark':
-							document.documentElement.classList.add('theme-dark');
-							break;
-					case 'light':
-							document.documentElement.classList.add('theme-light');
-							break;
-					default:
-							break;
-			}
-	</script>
-
-	<link rel="icon" href="./../favicon.png" type="image/png" />
+    <link rel="icon" href="./../favicon.png" type="image/png" />
     <link rel="canonical" href="https://www.slashsec.at/insights/ebay-source-code-leak/" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
     <link rel="amphtml" href="https://www.slashsec.at/insights/ebay-source-code-leak/amp/" />
@@ -174,235 +159,157 @@ var gh_white_logo = 'https://www.slashsec.at/insights/assets/img/slashsec-logo-w
 </head>
 
 <body class="post-template tag-bug-bounty tag-vulnerability tag-git">
-
-	<div class="nav-header">
-		<nav class="nav-wrapper" aria-label="Haupt">
-				<span class="logo">
-					<a href="https://www.slashsec.at/insights" title="Startseite"><img src="./..//content/images/2021/06/slashsec-full-4.svg" alt="Logo" /></a>
-				</span>
-				<ul>
-		<li class="nav-services-portfolio"><a href="https://www.slashsec.at/#portfolio"><span>Services &amp; Portfolio</span></a></li>
-		<li class="nav-about-slashsec"><a href="https://www.slashsec.at/#impressum"><span>About slashsec</span></a></li>
-		<li class="nav-kontakt"><a href="https://www.slashsec.at/#impressum"><span>Kontakt</span></a></li>
-		<li class="nav-beratungstermin-buchen"><a href="https://outlook.office365.com/owa/calendar/slashsec1@slashsec.at/bookings/"><span>Beratungstermin buchen</span></a></li>
+    <div class="site">
+        <header class="site-header container">
+    <div class="navbar">
+        <div class="navbar-left">
+            <div class="burger hidden-lg hidden-xl"></div>
+            <a class="logo" href="https://www.slashsec.at/insights">
+        <img class="logo-image" src="./..//content/images/2021/06/slashsec-full-4.svg" alt="slashsec Insights ">
+</a>            <div class="sep hidden-xs hidden-sm hidden-sm"></div>
+                <nav class="main-menu hidden-xs hidden-sm hidden-md">
+                    <ul class="nav-list u-plain-list">
+        <li class="menu-item menu-item-services-portfolio"><a class="menu-item-link"
+                href="https://www.slashsec.at/#portfolio">Services &amp; Portfolio</a></li>
+        <li class="menu-item menu-item-about-slashsec"><a class="menu-item-link"
+                href="https://www.slashsec.at/#impressum">About slashsec</a></li>
+        <li class="menu-item menu-item-kontakt"><a class="menu-item-link"
+                href="https://www.slashsec.at/#impressum">Kontakt</a></li>
+        <li class="menu-item menu-item-beratungstermin-buchen"><a class="menu-item-link"
+                href="https://outlook.office365.com/owa/calendar/slashsec1@slashsec.at/bookings/">Beratungstermin buchen</a></li>
 </ul>
+                </nav>
+        </div>
+        <div class="navbar-right">
+            <div class="toggle-track">
+                <div class="toggle-moon"><i class="icon icon-brightness-2"></i></div>
+                <div class="toggle-sun"><i class="icon icon-white-balance-sunny"></i></div>
+                <div class="toggle-thumb"></div>
+            </div>
+        </div>
+    </div>
+</header>        <div class="site-content">
+            
+<div class="content-area">
+    <main class="site-main">
+            <article class="post tag-bug-bounty tag-vulnerability tag-git featured no-image no-image single-post">
+                <header class="post-header big-title container medium">
+        <h1 class="post-title">Kritische Konfigurations-Schwachstellen am Beispiel von eBay</h1>
+            <div class="post-meta">
+                <span class="post-meta-item post-meta-date">
+                    <time datetime="2021-06-02">
+                            2. Juni 2021
+                    </time>
+                </span>
+                <span class="post-meta-item post-meta-length">
+                    1 min read
+                </span>
+                    <span class="post-meta-item post-meta-tags">
+                        <a class="post-tag post-tag-bug-bounty" href="./../tag/bug-bounty/"
+                                title="Bug Bounty">Bug Bounty</a><a class="post-tag post-tag-vulnerability" href="./../tag/vulnerability/"
+                                title="Vulnerability">Vulnerability</a><a class="post-tag post-tag-git" href="./../tag/git/"
+                                title="git">git</a>
+                    </span>
+            </div>
+</header>                                <div class="post-content kg-canvas u-text-format">
+                    <p>Schwachstellen mit hoher Kritikalität müssen nicht immer komplex oder auf veraltete Software zurückzuführen sein, im Gegenteil. Oft können banale Konfigurationsfehler, welche für Angreifer einfach zu identifizieren sind, große Auswirkungen auf das betroffene Unternehmen haben. </p><p>Ich will dies an einem Beispiel erläutern und zwar anhand einer Schwachstelle, welche ich im November 2018 bei<strong> eBay Japan</strong> identifizieren konnte.<br>Den vollen Beitrag dazu (auf Englisch) finden Sie auf meinem privaten <a href="https://slashcrypto.org/2018/11/28/eBay-source-code-leak/">Blog</a>.</p><h3 id="hacking-ebay-japan">Hacking eBay Japan</h3><p>Im Zuge eines privaten Research Projektes suchte ich zu diesem Zeitpunkt nach falsch konfigurierten Git Instanzen, welche es anonymen Angreifern erlauben, sensible Daten wie Source Code herunterzuladen. <br>Ich stieß schnell auf einen sehr bekannten Firmennamen: <strong>eBay</strong>. </p><p>Die Verwundbarkeit des Systems ließ sich prüfen, indem die URL <a href="https://www.ebay.co.jp/.git/HEAD">www.ebay.co.jp/.git/HEAD</a> aufgerufen wurde und folgende Antwort retourniert wurde: </p><figure class="kg-card kg-image-card"><img src="./..//content/images/2021/06/image.png" class="kg-image" alt loading="lazy" width="783" height="273" srcset="https://www.slashsec.at/insights/content/images/size/w600/2021/06/image.png 600w, https://www.slashsec.at/insights/content/images/2021/06/image.png 783w" sizes="(min-width: 720px) 720px"></figure><p>Dies ist ein starker Indikator, dass Angreifer über das Internet ohne jegliche Anmeldung sensible Daten von den Servern von eBay herunterladen können. </p><p>Ich wusste, dass eBay ein sogenanntes "Bug Bounty Programm" betreibt, weswegen ich die Schwachstelle auch weiter ausnutzte und versuchte, so viele Daten wie nur irgendwie möglich von den Servern herunterzuladen. </p><p>Einige Stunden später war ich im Besitz von <strong>1,2GB an Daten</strong> mit <strong>Klartextpasswörtern</strong>, <strong>PHP Source Code</strong>, <strong>Konfigurationsdateien</strong> und mehr.</p><p>Ich habe diesen Umstand selbstverständlich sofort an eBay gemeldet und 16 Stunden später war die Schwachstelle auch schon behoben. </p><h3 id="schlussfolgerung">Schlussfolgerung</h3><p>Anhand dieses Beispiels kann man erkennen, dass es oft nur einen kleinen Fehler (in diesem Fall eine falsche Berechtigung auf einen Ordner) braucht, um potenziell eine schwerwiegende Schwachstelle zu kreieren.</p><p>Schwachstellen entstehen sehr oft aufgrund von nicht aktueller Software, jedoch sollten Konfigurationen regelmäßig geprüft und Best Practices regelmäßig geschult werden.</p><p></p><p></p><p></p><p></p>
+                </div>
+                <div class="container medium">
+                    <div class="share u-hover-wrapper">
+    <a class="share-item share-facebook u-hover-item"
+        href="https://www.facebook.com/sharer.php?u=https://www.slashsec.at/insights/ebay-source-code-leak/" target="_blank" rel="noopener"><i
+            class="icon icon-facebook"></i></a>
+    <a class="share-item share-twitter u-hover-item"
+        href="https://twitter.com/intent/tweet?url=https://www.slashsec.at/insights/ebay-source-code-leak/&text=Kritische%20Konfigurations-Schwachstellen%20am%20Beispiel%20von%20eBay" target="_blank" rel="noopener"><i
+            class="icon icon-twitter"></i></a>
+    <a class="share-item share-pinterest u-hover-item"
+        href="https://pinterest.com/pin/create/button/?url=https://www.slashsec.at/insights/ebay-source-code-leak/&media=&description=Kritische%20Konfigurations-Schwachstellen%20am%20Beispiel%20von%20eBay"
+        target="_blank" rel="noopener" data-pin-do="none"><i class="icon icon-pinterest"></i></a>
+    <a class="share-item share-linkedin u-hover-item"
+        href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.slashsec.at/insights/ebay-source-code-leak/&title=Kritische%20Konfigurations-Schwachstellen%20am%20Beispiel%20von%20eBay"
+        target="_blank" rel="noopener"><i class="icon icon-linkedin"></i></a>
+    <a class="share-item share-reddit u-hover-item"
+        href="https://reddit.com/submit?url=https://www.slashsec.at/insights/ebay-source-code-leak/&title=Kritische%20Konfigurations-Schwachstellen%20am%20Beispiel%20von%20eBay" target="_blank" rel="noopener"><i
+            class="icon icon-reddit"></i></a>
+    <a class="share-item share-tumblr u-hover-item"
+        href="https://www.tumblr.com/widgets/share/tool?canonicalUrl=https://www.slashsec.at/insights/ebay-source-code-leak/&title=Kritische%20Konfigurations-Schwachstellen%20am%20Beispiel%20von%20eBay"
+        target="_blank" rel="noopener"><i class="icon icon-tumblr"></i></a>
+    <a class="share-item share-vk u-hover-item"
+        href="http://vk.com/share.php?url=https://www.slashsec.at/insights/ebay-source-code-leak/&title=Kritische%20Konfigurations-Schwachstellen%20am%20Beispiel%20von%20eBay" target="_blank" rel="noopener"><i
+            class="icon icon-vk"></i></a>
+    <a class="share-item share-pocket u-hover-item" href="https://getpocket.com/edit?url=https://www.slashsec.at/insights/ebay-source-code-leak/"
+        target="_blank" rel="noopener"><i class="icon icon-pocket"></i></a>
+    <a class="share-item share-telegram u-hover-item"
+        href="https://t.me/share/url?url=https://www.slashsec.at/insights/ebay-source-code-leak/&text=Kritische%20Konfigurations-Schwachstellen%20am%20Beispiel%20von%20eBay" target="_blank" rel="noopener"><i
+            class="icon icon-telegram"></i></a>
+</div>                        <section class="author">
+        <div class="author-image-placeholder u-placeholder">
+            <img class="author-image lazyload u-object-fit"
+                data-srcset="./../content/images/size/w150/2021/06/me-1.jpg"
+                src="./../content/images/size/w150/2021/06/me-1.jpg"
+                srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                alt="David Wind">
+        </div>
+        <div class="author-wrapper">
+            <header class="author-header">
+                <div class="author-header-wrapper">
+                    <h4 class="author-name">David Wind</h4>
+                    <div class="author-social">
+                        <a class="author-social-item author-more"
+                            href=/author/david/>More posts</a>
+                    </div>
+                </div>
+            </header>
+            <div class="author-bio"></div>
+        </div>
+    </section>
+                </div>
+            </article>
+            <div class="navigation container medium">
 
-				<ul class="nav-meta">
-  <li class="nav-twitter">
-    <a aria-label="Twitter" href="https://twitter.com/slashcrypto" title="@slashcrypto" target="_blank">
-      <i class="icon icon-twitter" aria-hidden="true"></i>
-      <span>@slashcrypto</span>
-    </a>
-  </li>
-  <li class="nav-search" style="display: none;">
-    <a title="Suche">
-      <i class="icon icon-search" aria-hidden="true"></i>
-      <span>Suche</span>
-    </a>
-  </li>
-  <!--
-    <li class="nav-subscribe">
-      <a href="#/portal">Subscribe</a>
-    </li>
-  -->
-</ul>
-		</nav>
-
-		<div class="nav-wrapper-control">
-			<div class="inner">
-				<a class="nav-menu" role="button"><i class="icon icon-menu" aria-hidden="true"></i>Menü</a>
-				<a class="nav-search" style="display: none;" title="Suche" role="button"><i class="icon icon-search" aria-hidden="true"></i></a>
-			</div>
-		</div>
-	</div>
-	<div class="nav-close" role="button" aria-label="Schließen"></div>
-
-	<section class="page-wrapper">
-
-		
-
-<div class="progress-container">
-	<span class="progress-bar"></span>
+</div>                            </main>
 </div>
+        </div>
+        <footer class="site-footer container large">
+    <div class="copyright">
+        Powered by <a href="https://ghost.org/" target="_blank" rel="noopener">Ghost</a>
+    </div>
 
-<header class="post-header ">
-	<div class="inner">
-		<span class="post-info">
-			<span class="post-type">Artikel</span>
-			<span class="post-count">Bug Bounty</span>
-		</span>
-		<h1 class="post-title">Kritische Konfigurations-Schwachstellen am Beispiel von eBay</h1>
-		<div class="post-meta">
-			<div class="post-meta-avatars">
-					<figure class="post-meta-avatar avatar">
-						<a href="./../author/david/" class="author-avatar">
-								<img class="author-profile-image" src="./../content/images/2021/06/me-1.jpg" alt="David Wind" />
-						</a>
-					</figure>
-			</div>
-			<h4 class="post-meta-author"><a href="./../author/david/">David Wind</a></h4>
-			<time datetime="02-06-2021">02 Juni 2021</time> &bull; Lesezeit: 1 Min.
-		</div>
-	</div>
-</header>
+    <a class="logo" href="https://www.slashsec.at/insights">
+        <img class="logo-image" src="./..//content/images/2021/06/slashsec-full-4.svg" alt="slashsec Insights ">
+</a>
+    <div class="footer-social">
+            <a class="footer-social-item footer-social-item-twitter" href="https://twitter.com/slashcrypto"
+                target="_blank" rel="noopener" aria-label="Twitter">
+                <i class="icon icon-twitter"></i>
+            </a>
+        <a class="footer-social-item footer-social-item-rss"
+            href="https://feedly.com/i/subscription/feed/https://www.slashsec.at/insights/rss/" target="_blank" rel="noopener"
+            aria-label="RSS">
+            <i class="icon icon-rss"></i>
+        </a>
+    </div>
+</footer>    </div>
 
-<main class="content" role="main">
-	<article class="post tag-bug-bounty tag-vulnerability tag-git featured no-image">
-		<div class="inner">
+    <div class="dimmer"></div>
 
-			<section class="post-content">
-				<p>Schwachstellen mit hoher Kritikalität müssen nicht immer komplex oder auf veraltete Software zurückzuführen sein, im Gegenteil. Oft können banale Konfigurationsfehler, welche für Angreifer einfach zu identifizieren sind, große Auswirkungen auf das betroffene Unternehmen haben. </p><p>Ich will dies an einem Beispiel erläutern und zwar anhand einer Schwachstelle, welche ich im November 2018 bei<strong> eBay Japan</strong> identifizieren konnte.<br>Den vollen Beitrag dazu (auf Englisch) finden Sie auf meinem privaten <a href="https://slashcrypto.org/2018/11/28/eBay-source-code-leak/">Blog</a>.</p><h3 id="hacking-ebay-japan">Hacking eBay Japan</h3><p>Im Zuge eines privaten Research Projektes suchte ich zu diesem Zeitpunkt nach falsch konfigurierten Git Instanzen, welche es anonymen Angreifern erlauben, sensible Daten wie Source Code herunterzuladen. <br>Ich stieß schnell auf einen sehr bekannten Firmennamen: <strong>eBay</strong>. </p><p>Die Verwundbarkeit des Systems ließ sich prüfen, indem die URL <a href="https://www.ebay.co.jp/.git/HEAD">www.ebay.co.jp/.git/HEAD</a> aufgerufen wurde und folgende Antwort retourniert wurde: </p><figure class="kg-card kg-image-card"><img src="./..//content/images/2021/06/image.png" class="kg-image" alt loading="lazy" width="783" height="273" srcset="https://www.slashsec.at/insights/content/images/size/w600/2021/06/image.png 600w, https://www.slashsec.at/insights/content/images/2021/06/image.png 783w" sizes="(min-width: 720px) 720px"></figure><p>Dies ist ein starker Indikator, dass Angreifer über das Internet ohne jegliche Anmeldung sensible Daten von den Servern von eBay herunterladen können. </p><p>Ich wusste, dass eBay ein sogenanntes "Bug Bounty Programm" betreibt, weswegen ich die Schwachstelle auch weiter ausnutzte und versuchte, so viele Daten wie nur irgendwie möglich von den Servern herunterzuladen. </p><p>Einige Stunden später war ich im Besitz von <strong>1,2GB an Daten</strong> mit <strong>Klartextpasswörtern</strong>, <strong>PHP Source Code</strong>, <strong>Konfigurationsdateien</strong> und mehr.</p><p>Ich habe diesen Umstand selbstverständlich sofort an eBay gemeldet und 16 Stunden später war die Schwachstelle auch schon behoben. </p><h3 id="schlussfolgerung">Schlussfolgerung</h3><p>Anhand dieses Beispiels kann man erkennen, dass es oft nur einen kleinen Fehler (in diesem Fall eine falsche Berechtigung auf einen Ordner) braucht, um potenziell eine schwerwiegende Schwachstelle zu kreieren.</p><p>Schwachstellen entstehen sehr oft aufgrund von nicht aktueller Software, jedoch sollten Konfigurationen regelmäßig geprüft und Best Practices regelmäßig geschult werden.</p><p></p><p></p><p></p><p></p>
-			</section>
+    <div class="off-canvas">
+        <div class="canvas-close">
+            <i class="canvas-icon icon icon-window-close"></i>
+        </div>
+        <div class="mobile-menu"></div>
+    </div>
 
-			<section class="post-footer">
+    <script
+        src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        crossorigin="anonymous">
+    </script>
+    <script src="./../assets/built/main.min.js?v=803b73dda6"></script>
 
-				<div class="post-share">
-					<span class="post-info-label">Teilen</span>
-					<a title="Twitter" aria-label="Twitter" class="twitter" href="https://twitter.com/share?text=Kritische Konfigurations-Schwachstellen am Beispiel von eBay&url=https://www.slashsec.at/insights/ebay-source-code-leak/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
-						<i class="icon icon-twitter" aria-hidden="true"></i>
-					</a>
-					<a title="Facebook" aria-label="Facebook" class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://www.slashsec.at/insights/ebay-source-code-leak/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-						<i class="icon icon-facebook" aria-hidden="true"></i>
-					</a>
-					<a title="LinkedIn" aria-label="LinkedIn" class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.slashsec.at/insights/ebay-source-code-leak//&amp;title=Kritische Konfigurations-Schwachstellen am Beispiel von eBay" onclick="window.open(this.href, 'linkedin-share', 'width=930,height=720');return false;">
-						<i class="icon icon-linkedin" aria-hidden="true"></i>
-					</a>
-					<a title="Email" aria-label="Email" class="email" href="mailto:?subject=Kritische Konfigurations-Schwachstellen am Beispiel von eBay&amp;body=https://www.slashsec.at/insights/ebay-source-code-leak/">
-						<i class="icon icon-mail" aria-hidden="true"></i>
-					</a>
-				</div>
+    
 
-				<aside class="post-tags">
-					<span class="post-info-label">Thema</span>
-					<a href="./../tag/bug-bounty/">Bug Bounty</a> <a href="./../tag/vulnerability/">Vulnerability</a> <a href="./../tag/git/">git</a>
-				</aside>
-
-			</section>
-
-
-			<section class="post-comments">
-				<a id="show-disqus" class="post-comments-activate">Kommentare anzeigen</a>
-			   <div id="disqus_thread"></div>
-			</section>
-
-
-			<aside class="post-nav">
-
-
-				<div class="clear"></div>
-			</aside>
-
-		</div>
-	</article>
-</main>
-
-
-
-
-
-		<div class="search-wrapper">
-			<div class="search">
-		    <form class="search-form">
-          <input class="search-field" type="text" placeholder="Suche …">
-          <button class="search-button" type="submit">
-						<i class="icon icon-search" aria-hidden="true"></i>
-					</button>
-		    </form>
-				<div class="popular-wrapper">
-					<h4 class="popular-title">Themen</h4>
-					<span class="popular-tags post-tags">
-								<a href='/tag/bug-bounty/'>Bug Bounty: 1</a>
-								<a href='/tag/git/'>git: 1</a>
-								<a href='/tag/vulnerability/'>Vulnerability: 1</a>
-					</span>
-				</div>
-				<div class="search-result"></div>
-			</div>
-			<button class="search-wrapper-close" aria-label="Schließen"></button>
-		</div>
-
-		<div class="nav-footer">
-			<nav class="nav-wrapper" aria-label="Fußzeile">
-				<span class="nav-copy">slashsec Insights  &copy; 2021  <a class="nav-rss" title="RSS" href="https://www.slashsec.at/insights/rss/" target="_blank"><i class="icon icon-rss" aria-hidden="true"></i></a></span>
-				<span class="nav-credits">Veröffentlicht mit <a href="https://ghost.org">Ghost</a> &bull; Theme <a href="https://github.com/zutrinken/attila">Attila</a> &bull; <a class="menu-item js-theme" href="#" data-system="System theme" data-dark="Dark theme" data-light="Light theme"><span class="theme-icon"></span><span class="theme-text">System theme</span> </a> </span>
-			</nav>
-		</div>
-
-	</section>
-
-	<script type="text/javascript" src="./../assets/js/script.js?v=264313192a"></script>
-
-	<script>
-  $(document).ready(function () {
-		var viewport = $(window);
-		var post = $('.post-content');
-		// Responsive videos with fitVids
-    post.fitVids();
-		// Format code blocks and add line numbers
-		function codestyling() {
-	    $('pre code').each(function(i, e) {
-				// Code highlight
-	      hljs.highlightBlock(e);
-	      // No lines for plain text blocks
-	      if (!$(this).hasClass('language-text')) {
-	        var code = $(this);
-					// Calculate amount of lines
-	        var lines = code.html().split(/\n(?!$)/g).length;
-	        var numbers = [];
-	        if (lines > 1) {
-	          lines++;
-	        }
-	        for (i = 1; i < lines; i++) {
-	          numbers += '<span class="line" aria-hidden="true">' + i + '</span>';
-	        }
-	        code.parent().append('<div class="lines">' + numbers + '</div>');
-	      }
-	    });
-	  }
-	  codestyling();
-		// Reading progress bar on window top
-	  function readingProgress() {
-			var postBottom = post.offset().top + post.height();
-			var viewportHeight = viewport.height();
-      var progress = 100 - (((postBottom - (viewport.scrollTop() + viewportHeight) + viewportHeight / 3) / (postBottom - viewportHeight + viewportHeight / 3)) * 100);
-      $('.progress-bar').css('width', progress + '%');
-      (progress > 100) ? $('.progress-container').addClass('complete'): $('.progress-container').removeClass('complete');
-	  }
-	  readingProgress();
-		// Trigger reading progress
-	  viewport.on({
-	    'scroll': function() {
-	      readingProgress();
-	    },
-	    'resize': function() {
-	      readingProgress();
-	    },
-	    'orientationchange': function() {
-	      readingProgress();
-	    }
-	  });
-		// Check if disqus is defined by code injection
-		if (typeof disqus === 'undefined') {
-			// hide comment section
-	    $('.post-comments').css({
-	      'display': 'none'
-	    });
-	  } else {
-	    $('#show-disqus').on('click', function() {
-	      $.ajax({
-	        type: "GET",
-	        url: "//" + disqus + ".disqus.com/embed.js",
-	        dataType: "script",
-	        cache: true
-	      });
-	      $(this).parent().addClass('activated');
-	    });
-	  }
-  });
-</script>
-
-
-	
-
+    
 </body>
+
 </html>
